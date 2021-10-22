@@ -22,17 +22,22 @@ import java.util.Map.Entry;
 public class CommandManager implements CommandExecutor {
 
     private final Map<String, Entry<Method, Object>> commandMap = new HashMap<>();
-    private CommandMap map;
     private final JavaPlugin plugin;
+    private final List<String> disabledCommands;
     public static CommandManager instance;
+
+    private CommandMap map;
 
     public static CommandManager getInstance() {
         return instance;
     }
 
-    public CommandManager(JavaPlugin plugin) {
+    public CommandManager(JavaPlugin plugin, List<String> disabledCommands) {
         instance = this;
+
         this.plugin = plugin;
+        this.disabledCommands = disabledCommands;
+
         if (plugin.getServer().getPluginManager() instanceof SimplePluginManager) {
             SimplePluginManager manager = (SimplePluginManager) plugin.getServer().getPluginManager();
             try {
@@ -88,10 +93,16 @@ public class CommandManager implements CommandExecutor {
         for (Method m : obj.getClass().getMethods()) {
             if (m.getAnnotation(Command.class) != null) {
                 Command command = m.getAnnotation(Command.class);
+
                 if (m.getParameterTypes().length > 1 || m.getParameterTypes()[0] != CommandArgs.class) {
                     System.out.println("Unable to register command " + m.getName() + ". Unexpected method arguments");
                     continue;
                 }
+
+                for (String dCommand : disabledCommands) {
+                    if (command.name().contains(dCommand)) return;
+                }
+
                 registerCommand(command, command.name(), m, obj);
 
                 for (String alias : command.aliases()) {
@@ -134,6 +145,7 @@ public class CommandManager implements CommandExecutor {
     public void registerCommand(Command command, String label, Method m, Object obj) {
         commandMap.put(label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
         commandMap.put(this.plugin.getName() + ':' + label.toLowerCase(), new AbstractMap.SimpleEntry<>(m, obj));
+
         String cmdLabel = label.replace(".", ",").split(",")[0].toLowerCase();
 
         if (map.getCommand(cmdLabel) == null) {
@@ -141,11 +153,11 @@ public class CommandManager implements CommandExecutor {
             map.register(plugin.getName(), cmd);
         }
 
-        if (!command.description().equalsIgnoreCase("") && cmdLabel == label) {
+        if (!command.description().equalsIgnoreCase("") && cmdLabel.equals(label)) {
             map.getCommand(cmdLabel).setDescription(command.description());
         }
 
-        if (!command.usage().equalsIgnoreCase("") && cmdLabel == label) {
+        if (!command.usage().equalsIgnoreCase("") && cmdLabel.equals(label)) {
             map.getCommand(cmdLabel).setUsage(command.usage());
         }
     }

@@ -4,6 +4,7 @@ import dev.panda.rank.RankManager;
 import dev.panda.rank.Rank;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -35,5 +36,10 @@ public class PermissionsEx implements Rank {
         OfflinePlayer player = Bukkit.getOfflinePlayer(uuid);
         return RankManager.getInstance().getChat().getPrimaryGroup(String.valueOf(
                 RankManager.getInstance().getPlugin().getServer().getWorlds().get(0).getName()), player);
+    }
+
+    @Override
+    public String getRealName(Player player) {
+        return null;
     }
 }

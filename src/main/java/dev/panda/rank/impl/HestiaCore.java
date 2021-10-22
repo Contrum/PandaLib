@@ -2,6 +2,7 @@ package dev.panda.rank.impl;
 
 import dev.panda.rank.Rank;
 import me.quartz.hestia.HestiaAPI;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -25,5 +26,10 @@ public class HestiaCore implements Rank {
     @Override
     public String getColor(UUID uuid) {
         return HestiaAPI.instance.getRank(uuid);
+    }
+
+    @Override
+    public String getRealName(Player player) {
+        return null;
     }
 }

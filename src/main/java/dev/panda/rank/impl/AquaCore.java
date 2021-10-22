@@ -3,6 +3,7 @@ package dev.panda.rank.impl;
 import dev.panda.rank.Rank;
 import me.activated.core.api.player.PlayerData;
 import me.activated.core.plugin.AquaCoreAPI;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -30,5 +31,10 @@ public class AquaCore implements Rank {
     public String getColor(UUID uuid) {
         PlayerData data = AquaCoreAPI.INSTANCE.getPlayerData(uuid);
         return data == null ? "No Data" : data.getHighestRank().getColor() + data.getHighestRank().getName();
+    }
+
+    @Override
+    public String getRealName(Player player) {
+        return AquaCoreAPI.INSTANCE.getRealName(player);
     }
 }

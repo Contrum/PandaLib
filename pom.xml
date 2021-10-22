@@ -14,6 +14,10 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
+            <id>placeholder</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
@@ -71,15 +75,6 @@
             <systemPath>${project.basedir}/libs/mCoreAPI.jar</systemPath>
         </dependency>
 
-        <!-- Synth API -->
-        <dependency>
-            <groupId>Synth</groupId>
-            <artifactId>Synth-API</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/libs/Synth.jar</systemPath>
-        </dependency>
-
         <!-- Zoom API -->
         <dependency>
             <groupId>Zoom</groupId>
@@ -94,6 +89,14 @@
             <groupId>net.luckperms</groupId>
             <artifactId>api</artifactId>
             <version>5.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- PAPI -->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.10.9</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

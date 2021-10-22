@@ -36,13 +36,13 @@ public class RankManager {
             this.setRank(new mCore());
             this.setRankSystem("mCore");
         }
-        else if (Bukkit.getPluginManager().getPlugin("Synth") != null) {
-            this.setRank(new Synth());
-            this.setRankSystem("Synth");
-        }
         else if (Bukkit.getPluginManager().getPlugin("LuckPerms") != null) {
             this.setRank(new LuckPerms());
             this.setRankSystem("LuckPerms");
+        }
+        else if (Bukkit.getPluginManager().getPlugin("Zoom") != null) {
+            this.setRank(new Zoom());
+            this.setRankSystem("Zoom");
         }
         else if (Bukkit.getPluginManager().getPlugin("Vault") != null) {
             this.loadVault();

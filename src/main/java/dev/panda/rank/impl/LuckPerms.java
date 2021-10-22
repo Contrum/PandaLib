@@ -5,6 +5,7 @@ import net.luckperms.api.cacheddata.CachedMetaData;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.query.QueryOptions;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -51,5 +52,10 @@ public class LuckPerms implements Rank {
         }
 
         return user.getCachedData().getMetaData(queryOptions.get());
+    }
+
+    @Override
+    public String getRealName(Player player) {
+        return null;
     }
 }

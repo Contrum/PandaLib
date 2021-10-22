@@ -1,16 +1,18 @@
 package dev.panda.utilities;
 
+import lombok.experimental.UtilityClass;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@UtilityClass
 public class MathUtil {
 
-    private static final int SIN_BITS, SIN_MASK, SIN_COUNT;
-    private static final double radFull, radToIndex;
-    private static final double degFull, degToIndex;
-    private static final double[] sin, cos;
+    private final int SIN_BITS, SIN_MASK, SIN_COUNT;
+    private final double radFull, radToIndex;
+    private final double degFull, degToIndex;
+    private final double[] sin, cos;
 
     static {
         SIN_BITS = 12;
@@ -36,7 +38,7 @@ public class MathUtil {
         }
     }
 
-    public static List<Location> getCircle(Location center, float radius, int amount) {
+    public List<Location> getCircle(Location center, float radius, int amount) {
         List<Location> list = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             double a = 2 * Math.PI / amount * i;
@@ -47,11 +49,11 @@ public class MathUtil {
         return list;
     }
 
-    public static double sin(double rad) {
+    public double sin(double rad) {
         return sin[(int) (rad * radToIndex) & SIN_MASK];
     }
 
-    public static double cos(double rad) {
+    public double cos(double rad) {
         return cos[(int) (rad * radToIndex) & SIN_MASK];
     }
 }
