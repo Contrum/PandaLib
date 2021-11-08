@@ -1,4 +1,4 @@
-package dev.panda.utilities;
+package dev.panda.sound;
 
 import lombok.experimental.UtilityClass;
 import org.bukkit.Sound;

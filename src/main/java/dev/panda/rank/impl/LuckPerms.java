@@ -7,6 +7,7 @@ import net.luckperms.api.query.QueryOptions;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -41,15 +42,11 @@ public class LuckPerms implements Rank {
     private CachedMetaData getMetaData(UUID uuid) {
         User user = this.luckPerms.getUserManager().getUser(uuid);
 
-        if (user == null) {
-            throw new IllegalArgumentException("LuckPerms user could not be found");
-        }
+        if (user == null) throw new IllegalArgumentException("LuckPerms user could not be found");
 
         Optional<QueryOptions> queryOptions = this.luckPerms.getContextManager().getQueryOptions(user);
 
-        if (!queryOptions.isPresent()) {
-            throw new IllegalArgumentException("LuckPerms context could not be loaded");
-        }
+        if (!queryOptions.isPresent()) throw new IllegalArgumentException("LuckPerms context could not be loaded");
 
         return user.getCachedData().getMetaData(queryOptions.get());
     }
@@ -57,5 +54,13 @@ public class LuckPerms implements Rank {
     @Override
     public String getRealName(Player player) {
         return null;
+    }
+
+    @Override
+    public int getWeight(UUID uuid) {
+        return Objects.requireNonNull(this.luckPerms.getGroupManager().getGroup(
+                Objects.requireNonNull(getMetaData(uuid)
+                .getPrimaryGroup())))
+                .getWeight().orElse(0);
     }
 }

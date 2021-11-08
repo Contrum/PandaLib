@@ -11,4 +11,5 @@ public interface Rank {
     String getSuffix(UUID uuid);
     String getColor(UUID uuid);
     String getRealName(Player player);
+    int getWeight(UUID uuid);
 }

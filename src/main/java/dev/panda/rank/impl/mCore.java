@@ -43,4 +43,9 @@ public class mCore implements dev.panda.rank.Rank {
     public String getRealName(Player player) {
         return null;
     }
+
+    @Override
+    public int getWeight(UUID uuid) {
+        return this.getRank(uuid) == null ? 0 : this.getRank(uuid).getWeight();
+    }
 }

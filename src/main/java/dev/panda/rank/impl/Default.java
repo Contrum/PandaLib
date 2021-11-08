@@ -31,4 +31,9 @@ public class Default implements Rank {
     public String getRealName(Player player) {
         return null;
     }
+
+    @Override
+    public int getWeight(UUID uuid) {
+        return 0;
+    }
 }

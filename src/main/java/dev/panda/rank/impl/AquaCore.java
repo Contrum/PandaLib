@@ -1,6 +1,7 @@
 package dev.panda.rank.impl;
 
 import dev.panda.rank.Rank;
+import me.activated.core.api.player.GlobalPlayer;
 import me.activated.core.api.player.PlayerData;
 import me.activated.core.plugin.AquaCoreAPI;
 import org.bukkit.entity.Player;
@@ -36,5 +37,11 @@ public class AquaCore implements Rank {
     @Override
     public String getRealName(Player player) {
         return AquaCoreAPI.INSTANCE.getRealName(player);
+    }
+
+    @Override
+    public int getWeight(UUID uuid) {
+        GlobalPlayer data = AquaCoreAPI.INSTANCE.getGlobalPlayer(uuid);
+        return data == null ? 0 : data.getRankWeight();
     }
 }
